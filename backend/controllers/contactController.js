@@ -3,32 +3,32 @@
 const Contact = require('../models/contactModel');
 
 
-// This function exports a function that creates a new contact in the database.
-// It uses the express framework to handle the request and response objects.
-// The function uses the async/await syntax to handle asynchronous operations.
-// The function returns a Promise that resolves to the JSON response containing the newly created contact.
+/**
+ * This function exports a function that creates a new contact in the database.
+ * It uses the express framework to handle the request and response objects.
+ * The function uses the async/await syntax to handle asynchronous operations.
+ * The function returns a Promise that resolves to the JSON response containing the newly created contact.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @return {Promise} A Promise that resolves to the JSON response containing the newly created contact.
+ */
 exports.createContact = async (req, res) => {
   try {
-    // Extract the name, phone number, and birthday from the request body
+    // Extract parameters from the request body
     const { name, phone, birthday } = req.body;
 
-    // Check if all required fields are provided
-    // If any of the fields are missing, return a 400 error with a message indicating which fields are required
+    // Check if all required fields are provided else return 400 Message
     if (!name || !phone || !birthday) {
-      return res
-        .status(400)
-        .json({ message: 'Name, Phone, and Birthday are required.' });
+      return res.status(400).json({ message: 'Name, Phone, and Birthday are required.' });
     }
 
     // Format the birthday to a Date object
     const formattedBirthday = new Date(birthday);
 
-    // Check if the formatted birthday is valid
-    // If the birthday is not in a valid format, return a 400 error with a message indicating the required format
+    // Check if the formatted birthday is valid else return 400 status with an error message
     if (isNaN(formattedBirthday.getTime())) {
-      return res
-        .status(400)
-        .json({ message: 'Invalid Birthday format. Please use ISO 8601.' });
+      return res.status(400).json({ message: 'Invalid Birthday format. Please use ISO 8601.' });
     }
 
     // Create a new contact object with the extracted fields
@@ -51,18 +51,23 @@ exports.createContact = async (req, res) => {
   }
 };
 
-// This function exports a function that retrieves all contacts from the database
-// and sends them back to the client in a JSON format.
-// It uses the express framework to handle the request and response objects.
-// The function uses the async/await syntax to handle asynchronous operations.
-// The function returns a Promise that resolves to the JSON response containing all contacts.
+/**
+ * This function exports a function that retrieves all contacts from the database
+ * and sends them back to the client in a JSON format.
+ * It uses the express framework to handle the request and response objects.
+ * The function uses the async/await syntax to handle asynchronous operations.
+ * The function returns a Promise that resolves to the JSON response containing all contacts.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @return {Promise} A Promise that resolves to the JSON response containing all contacts.
+ */
 exports.getAllContacts = async (req, res) => {
   try {
     // Find all contacts in the database and store the result in the 'contacts' variable.
     const contacts = await Contact.find();
 
-    // If the 'contacts' array is not empty, set 'formattedContacts' to the 'contacts' array.
-    // Otherwise, set 'formattedContacts' to an empty array.
+    // Check if the 'contacts' array is not empty, if not set 'formattedContacts' to an empty array.
     const formattedContacts = contacts?.length ? contacts : [];
 
     // Send a JSON response with a status of 200 and the 'formattedContacts' array as the body.

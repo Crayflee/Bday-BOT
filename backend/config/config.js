@@ -1,6 +1,6 @@
 // config/config.js
 
-require('dotenv').config(); // Lädt Umgebungsvariablen
+require('dotenv').config(); // Load environment variables from .env file
 
 module.exports = {
     twilio: {
