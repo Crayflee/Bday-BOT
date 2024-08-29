@@ -43,7 +43,7 @@ The application is divided into the following parts:
 
 1. **Add Frontend**
 2. **Dockerize the Application**
-
+3. **Add AI generated personal messaged**
 
 
 

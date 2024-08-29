@@ -1,7 +1,7 @@
 // cronJobs.js
 const cron = require('node-cron');
-const Contact = require('./models/contactModel');
-const { sendBirthdayMessage } = require('./services/twilioService');
+const Contact = require('../models/contactModel');
+const { sendBirthdayMessage } = require('../services/twilioService');
 
 
 cron.schedule('0 9 * * *', async () => { // Täglich um 9 Uhr morgens
